@@ -30,7 +30,7 @@ class MusicLibraryController
   def list_songs
     index = 1
     
-    sorted_by_name = Song.all.sort { |song1, song2| song1.name <=> song2.name }
+    sorted_by_name = Song.all.sort_by { |song| song.name }
     
     sorted_by_name.each do |song|
       
@@ -43,7 +43,7 @@ class MusicLibraryController
   def list_artists
     index = 1
     
-    sorted_by_name = Artist.all.sort { |artist1, artist2| artist1.name <=> artist2.name }
+    sorted_by_name = Artist.all.sort_by { |artist| artist.name }
     
     sorted_by_name.each do |artist|
       
@@ -56,7 +56,7 @@ class MusicLibraryController
   def list_genres
     index = 1
     
-    sorted_by_name = Genre.all.sort { |genre1, genre2| genre1.name <=> genre2.name }
+    sorted_by_name = Genre.all.sort_by { |genre| genre.name }
     
     sorted_by_name.each do |genre|
       
@@ -67,7 +67,46 @@ class MusicLibraryController
   end
   
   def list_songs_by_artist
-    
+    puts "Please enter the name of an artist:"
+    input = gets
+    searched_artist = Artist.all.find { |artist| artist.name == input.to_s }
+    if searched_artist
+      index = 1
+      sorted_songs = searched_artist.songs.sort_by { |song| song.name }
+      sorted_songs.each do |song|
+        puts "#{index}. #{song.name} - #{song.genre.name}"
+        index += 1
+      end
+    end
+  end
+  
+  def list_songs_by_genre
+    puts "Please enter the name of a genre:"
+    input = gets
+    searched_genre = Genre.all.find { |genre| genre.name == input.to_s }
+    if searched_genre
+      index = 1
+      sorted_songs = searched_genre.songs.sort_by { |song| song.name }
+      sorted_songs.each do |song|
+        puts "#{index}. #{song.artist.name} - #{song.name}"
+        index += 1
+      end
+    end
+  end
+  
+  def play_song
+    total = list_songs.length
+    valid = false
+    song = Song.all
+    puts "Which song number would you like to play?"
+    input = gets.chomp.to_i
+    if input && 0 < input <= total
+      valid = true
+    end
+    if valid == true
+      puts "Playing #{song.name} by #{song.artist.name}."
+    end
   end
   
 end
+
