@@ -27,12 +27,22 @@ class MusicLibraryController
     
   end
   
+  def sorted_songs
+    Song.all.sort_by {|song| song.name}
+  end
+  
+  def sorted_artists
+    Artist.all.sort_by {|artist| artist.name}
+  end
+  
+  def sorted_genres
+    Genre.all.sort_by {|genre| genre.name}
+  end
+  
   def list_songs
     index = 1
     
-    sorted_by_name = Song.all.sort_by { |song| song.name }
-    
-    sorted_by_name.each do |song|
+    sorted_songs.each do |song|
       
       puts "#{index}. #{song.artist.name} - #{song.name} - #{song.genre.name}"
       index += 1
@@ -43,9 +53,7 @@ class MusicLibraryController
   def list_artists
     index = 1
     
-    sorted_by_name = Artist.all.sort_by { |artist| artist.name }
-    
-    sorted_by_name.each do |artist|
+    sorted_artists.each do |artist|
       
       puts "#{index}. #{artist.name}"
       index += 1
@@ -55,10 +63,7 @@ class MusicLibraryController
   
   def list_genres
     index = 1
-    
-    sorted_by_name = Genre.all.sort_by { |genre| genre.name }
-    
-    sorted_by_name.each do |genre|
+    sorted_genres.each do |genre|
       
       puts "#{index}. #{genre.name}"
       index += 1
@@ -95,16 +100,11 @@ class MusicLibraryController
   end
   
   def play_song
-    total = list_songs.length
-    valid = false
-    song = Song.all
     puts "Which song number would you like to play?"
-    input = gets.chomp.to_i
-    if input && 0 < input <= total
-      valid = true
-    end
-    if valid == true
-      puts "Playing #{song.name} by #{song.artist.name}."
+    input = gets
+    song = sorted_songs[input.to_i - 1]
+    if input.to_i > 0 && input.to_i <= sorted_songs.length
+      puts "Playing #{song.name} by #{song.artist.name}"
     end
   end
   
