@@ -1,7 +1,5 @@
 module Concerns::Findable
   
-  #module ClassMethods
-  
     def create(name)
       obj = self.new(name)
       obj.save
@@ -24,5 +22,4 @@ module Concerns::Findable
       end
     end
     
-  #end
 end
