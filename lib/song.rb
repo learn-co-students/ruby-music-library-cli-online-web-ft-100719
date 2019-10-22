@@ -33,4 +33,9 @@ class Song
     @@all << self
   end
   
+  def self.new_from_filename(file_name)
+    artist_name, song_name, genre = file_name.gsub(/(.mp3)/, "").split(" - ")
+    
+  end
+  
 end
