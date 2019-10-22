@@ -25,11 +25,11 @@ class Genre
     @@all << self
   end
   
-  def self.create(name)
-    genre = Genre.new(name)
-    genre.save
-    self
-  end
+  # def self.create(name)
+  #   genre = Genre.new(name)
+  #   genre.save
+  #   self
+  # end
   
   def artists
     @songs.map { |song| song.artist }.uniq

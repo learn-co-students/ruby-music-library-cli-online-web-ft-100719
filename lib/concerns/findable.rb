@@ -1,6 +1,12 @@
 module Concerns::Findable
   
   #module ClassMethods
+  
+    def create(name)
+      obj = self.new(name)
+      obj.save
+      obj
+    end
     
     def find_by_name(name)
       self.all.find {|a| a.name == name}
