@@ -1,3 +1,4 @@
+require 'pry'
 class Song  
   attr_accessor :name, :artist, :genre
   
@@ -42,14 +43,28 @@ class Song
   end
   
   def self.find_by_name(name)
-    self.all.each{|song| return song if song.name == name}
+    found = nil
+    self.all.each{|song| found = song if song.name == name}
+    found
   end
   
   def self.find_or_create_by_name(name)
     if find_by_name(name)
       return find_by_name(name)
     else 
-      Song.create(name)
+      return Song.create(name)
     end
+  end
+  
+  def self.new_from_filename(filename)
+    song_parts = filename.split(" - ")
+    genre = Genre.find_or_create_by_name(song_parts[2].gsub!(".mp3", ""))
+    artist = Artist.find_or_create_by_name(song_parts[0])
+    song = Song.new(song_parts[1], artist, genre)
+  end
+  
+  def self.create_from_filename(filename)
+    song = new_from_filename(filename)
+    song.save
   end
 end
