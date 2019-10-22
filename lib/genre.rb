@@ -2,7 +2,7 @@ require_relative './concerns/findable'
 
 class Genre
   
-  extend Findable::ClassMethods
+  extend Concerns::Findable
   
   attr_accessor :name
   

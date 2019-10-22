@@ -2,7 +2,7 @@ require_relative './concerns/findable'
 
 class Song
   
-  extend Findable::ClassMethods
+  extend Concerns::Findable
   
   attr_accessor :name
   attr_reader :artist, :genre
@@ -36,7 +36,7 @@ class Song
   def self.create(name)
     song = Song.new(name)
     song.save
-    self
+    song
   end
   
 end
