@@ -86,7 +86,7 @@ class MusicLibraryController
   
   def list_songs_by_artist
     puts "Please enter the name of an artist:"
-    input = gets
+    input = gets.chomp
     searched_artist = Artist.all.find { |artist| artist.name == input.to_s }
     if searched_artist
       index = 1
@@ -100,7 +100,7 @@ class MusicLibraryController
   
   def list_songs_by_genre
     puts "Please enter the name of a genre:"
-    input = gets
+    input = gets.chomp
     searched_genre = Genre.all.find { |genre| genre.name == input.to_s }
     if searched_genre
       index = 1
@@ -114,7 +114,7 @@ class MusicLibraryController
   
   def play_song
     puts "Which song number would you like to play?"
-    input = gets
+    input = gets.chomp
     song = sorted_songs[input.to_i - 1]
     if input.to_i > 0 && input.to_i <= sorted_songs.length
       puts "Playing #{song.name} by #{song.artist.name}"
