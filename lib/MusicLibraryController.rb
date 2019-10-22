@@ -19,23 +19,23 @@ class MusicLibraryController
     puts "To list all of the songs of a particular genre, enter 'list genre'."
     puts "To play a song, enter 'play song'."
     puts "To quit, type 'exit'."
-    until input == "exit"
+    while input != "exit"
       puts "What would you like to do?"
       
-      input = gets
+      input = gets.chomp
         case input
           when "list songs"
-            list_songs
+            puts self.list_songs
           when "list artists"
-            list_artists
+            puts self.list_artists
           when "list genres"
-            list_genres
+            puts self.list_genres
           when "list artist"
-            list_songs_by_artist
+            puts self.list_songs_by_artist
           when "list genre"
-            list_songs_by_genre
+            puts self.list_songs_by_genre
           when "play song"
-            play_song
+            puts self.play_song
         end
       end
   end
@@ -105,7 +105,7 @@ class MusicLibraryController
     if searched_genre
       index = 1
       sorted_songs = searched_genre.songs.sort_by { |song| song.name }
-      sorted_songs.each do |song|
+      sorted_songs.map do |song|
         puts "#{index}. #{song.artist.name} - #{song.name}"
         index += 1
       end
