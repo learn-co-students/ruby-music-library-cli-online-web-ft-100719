@@ -1,3 +1,5 @@
+require 'pry'
+
 class Song
 
   attr_accessor :name, :artist, :genre
@@ -23,9 +25,9 @@ def save
 end
 
 def self.create(name)
-  c = self.new(name)
-  c.save
-  c
+ c = self.new(name)
+ c.save
+ c
 end
 
 def artist=(artist)
@@ -62,8 +64,12 @@ def artist=(artist)
 
 def self.find_by_name(name)
   @@all.find do |song|
-    song.name ==name
+    song.name == name
   end
+end
+
+def self.find_or_create_by_name(name)
+    self.find_by_name(name) || self.create(name)
 end
 
 
