@@ -1,6 +1,6 @@
 class Artist
 
-  extend Concerns::Findable
+  extend Concerns
 
   attr_accessor :name, :artist, :genre
 
