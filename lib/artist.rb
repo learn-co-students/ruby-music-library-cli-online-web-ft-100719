@@ -3,9 +3,11 @@ class Artist
 
   @@all = []
 
+
   def initialize(name)
     @name = name
     self.class.all << self
+    @songs = []
   end
 
   def self.all
@@ -22,8 +24,23 @@ class Artist
 
   def self.create(name)
     self.new(name)
-    save
-    self
   end
+
+  def songs
+    @songs
+  end
+
+  def add_song(song)
+    song.artist = self unless song.artist == self
+    @songs << song unless @songs.include?(song)
+  end
+
+  def genres
+    genres = @songs.collect do |song|
+      song.genre
+    end
+    genres.uniq
+  end
+
 
 end
