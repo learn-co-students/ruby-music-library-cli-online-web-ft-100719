@@ -1,4 +1,4 @@
-
+#require_relative '../lib'
 
 class MusicLibraryController
   attr_accessor :path, :mp3_importer
@@ -31,8 +31,8 @@ class MusicLibraryController
       case user_input 
         when 'list songs'
           list_songs
-      #   when 'list artists'
-          
+        when 'list artists'
+          list_artists
       #   when 'list genres'
           
       #   when 'list artist'
@@ -45,12 +45,19 @@ class MusicLibraryController
   end#call
 
   def list_songs
-    #binding.pry
-    @imported_songs.sort_by {|song| song.name}.each_with_index do |this_song, index|
-      puts "#{index}+1. #{song.name} - #{song.artist} - #{song.genre}"
+    sorted_songs = Songs.all.sort_by {|song| song.name}
+    sorted_songs.each_with_index do |this_song, index|
+      #puts "#{index+1}. #{this_song.name} - #{this_song.artist.name} - #{this_song.genre.name}"
+      puts "#{index+1}. #{this_song.artist.name} - #{this_song.name} - #{this_song.genre.name}"
     end #do
-    
   end #list_songs
   
+  def list_artists
+    sorted_artists = Songs.all.map {|song| song.artist.name}.uniq.sort
+    binding.pry
+    sorted_artists.each_with_index do |this_artist, index|
+      puts "#{index+1}. #{this_artist}"
+    end #do
     
+  end #list_artists
 end #MusicLibraryController
