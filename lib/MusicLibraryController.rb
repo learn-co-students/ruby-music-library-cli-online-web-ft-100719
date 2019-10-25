@@ -1,3 +1,5 @@
+require 'pry'
+
 class MusicLibraryController
 
   def initialize(path = "./db/mp3s")
@@ -25,12 +27,6 @@ class MusicLibraryController
         self.list_artists
       when "list genres"
         self.list_genres
-      # when "list artist"
-      #   self.list_songs_by_artist
-      # when "list genre"
-      #   self.list_songs_by_genre
-      # when "play song"
-      #   self.play_song
       when "exit"
         'exit'
     else
@@ -39,24 +35,22 @@ class MusicLibraryController
  end
 
   def list_songs
-    songs = Song.all.sort_by do |song|
-     song.name
-    end
-    binding.pry
-    songs.each.with_index(1) do |s, i|
-     puts "#{i}. #{s.artist.name} - #{s.name} - #{s.genre.name}}"
-    end
+    song - []
+    song = Song.all.sort { |song| song.name}
+      song.each.with_index(1) do |s, i|
+       puts "#{i}. #{s.artist.name} - #{s.name} - #{s.genre.name}"
+     end
  end
 
  def list_artists
-   artist = Artist.all.sort_by { |artist| artist.name}
+   artist = Artist.all.sort { |artist| artist.name}
    artist.each.with_index(1) do |artist, index|
      puts "#{index}. #{artist.name}"
    end
  end
 
  def list_genres
-   genre = Genre.all.sort_by {|genre| genre.name}
+   genre = Genre.all.sort {|genre| genre.name}
    genre.each.with_index(1) do |genre, index|
      puts "#{index}. #{genre.name}"
    end
