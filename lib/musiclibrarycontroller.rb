@@ -92,5 +92,13 @@ class MusicLibraryController
       end #do
     end#if
    end #list_songs_by_artist
+   
+   def play_song
+     song_list = list_songs
+     binding.pry
+     puts "Which song number would you like to play?"
+     user_input = gets.strip
+     puts "Playing song_name by artist"
+   end
   
 end #MusicLibraryController
