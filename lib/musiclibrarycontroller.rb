@@ -47,8 +47,8 @@ class MusicLibraryController
   end#call
 
   def list_songs
-    sorted_songs = Song.all.sort_by {|song| song.name}
-    sorted_songs.each_with_index do |this_song, index|
+    @listed_songs = Song.all.sort_by {|song| song.name}
+    @listed_songs.each_with_index do |this_song, index|
       puts "#{index+1}. #{this_song.artist.name} - #{this_song.name} - #{this_song.genre.name}"
     end #do
   end #list_songs
@@ -93,11 +93,10 @@ class MusicLibraryController
    end #list_songs_by_artist
    
    def play_song
-     song_list = list_songs
-     binding.pry
+     
      puts "Which song number would you like to play?"
-     user_input = gets.strip
-     puts "Playing #{song_list[user_input-1].name} by #{song_list[user_input-1].artist.name"
+     user_input = gets.strip.to_i
+     puts "Playing #{@listed_songs[user_input-1].name} by #{@listed_songs[user_input-1].artist.name}"
    end
   
 end #MusicLibraryController
