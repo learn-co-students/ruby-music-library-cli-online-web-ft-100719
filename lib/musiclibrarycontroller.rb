@@ -45,7 +45,7 @@ class MusicLibraryController
   end#call
 
   def list_songs
-    sorted_songs = Songs.all.sort_by {|song| song.name}
+    sorted_songs = Song.all.sort_by {|song| song.name}
     sorted_songs.each_with_index do |this_song, index|
       #puts "#{index+1}. #{this_song.name} - #{this_song.artist.name} - #{this_song.genre.name}"
       puts "#{index+1}. #{this_song.artist.name} - #{this_song.name} - #{this_song.genre.name}"
@@ -53,11 +53,18 @@ class MusicLibraryController
   end #list_songs
   
   def list_artists
-    sorted_artists = Songs.all.map {|song| song.artist.name}.uniq.sort
-    binding.pry
+    sorted_artists = Artist.all.map {|artist| artist.name}.uniq.sort
     sorted_artists.each_with_index do |this_artist, index|
       puts "#{index+1}. #{this_artist}"
     end #do
     
   end #list_artists
+  
+  def list_genres
+    sorted_genres = Genre.all.map {|genre| genre.name}.uniq.sort
+    sorted_genres.each_with_index do |this_genre, index|
+      puts "#{index+1}. #{this_genre}"
+    end #do
+    
+  end #list_genre
 end #MusicLibraryController
