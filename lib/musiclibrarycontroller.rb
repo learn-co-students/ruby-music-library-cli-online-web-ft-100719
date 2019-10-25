@@ -33,10 +33,11 @@ class MusicLibraryController
           list_songs
         when 'list artists'
           list_artists
-      #   when 'list genres'
-          
-      #   when 'list artist'
-          
+        when 'list genres'
+          list_genres
+        when 'list artist'
+          list_songs_by_artist
+        
        end
     puts "What would you like to do?"
     user_input = gets.strip.downcase
@@ -65,6 +66,17 @@ class MusicLibraryController
     sorted_genres.each_with_index do |this_genre, index|
       puts "#{index+1}. #{this_genre}"
     end #do
-    
   end #list_genre
+  
+  def list_songs_by_artist
+    puts "Please enter the name of an artist:"
+    user_input = gets.strip
+    if chosen_artist = Artist.find_by_name(user_input)
+      artists_songs = Song.all.map {|song| song.artist == chosen_artist}.uniq.sort
+      artists_songs.each_with_index do |this_song, index|
+        puts "#{index+1}. #{this_song.name} - #{this_song.genre.name}"
+      end #do
+    end#if
+   end #list_songs_by_artist
+   
 end #MusicLibraryController
