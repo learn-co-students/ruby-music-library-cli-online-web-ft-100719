@@ -1,5 +1,8 @@
+require 'pry'
+
 class MusicImporter
 
+  attr_accessor :path
 
   def initialize(path)
     @path = path
@@ -9,15 +12,14 @@ class MusicImporter
     @path
   end
 
-  def files()
-    #glob retuns an array containg the matching filenames, gsub strips the path and just gives the filename
-    # plus a ,
-    @files ||= Dir.glob("#{path}/*.mp3").collect{ |file| file.gsub("{@path}/","")}
-  end
+  def files
+		files = Dir.glob("#{path}**/*")
+		files = files.collect{|file|file.scan(/(?<=mp3s\/)(.*)/)}.flatten
+	end
 
-  def import()
-    files.each do |filename|
-      Song.find_or_create_by_name(name)
+  def import
+    self.files.each do |filename|
+      Song.create_from_filename(filename)
     end
   end
 

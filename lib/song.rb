@@ -2,7 +2,8 @@ require 'pry'
 
 class Song
 
-  attr_accessor :name, :artist, :genre
+  attr_accessor :name, :genre
+  attr_reader :artist
   @@all = []
 
   def initialize(name, artist = nil, genre = nil)
@@ -73,17 +74,20 @@ class Song
   end
 
   def self.create_from_filename(name)
-    @@all << self.new_from_filename(name)
+    file =  self.new_from_filename(name)
+    file.save
+    file
   end
 
   def self.new_from_filename(name)
-    song_name = name.split(" - ")[1]
-    artist_name = name.split(" - ")[0]
-    genre_name = name.split(" - ")[2].chomp(".mp3")
-      #creates connections and prevents the creation of duplicate objects: songs, artists, genres
-    song = self.find_or_create_by_name(song_name)
-    song.artist = Artist.find_or_create_by_name(artist_name)
-    song.genre = Genre.find_or_create_by_name(genre_name)
+    filename = name.gsub(/(\.mp3)/,'')
+    filename = filename.split(" - ")
+
+    song = self.find_or_create_by_name(filename[1])
+    artist = Artist.find_or_create_by_name(filename[0])
+    genre = Genre.find_or_create_by_name(filename[2])
+    song.artist = artist
+    song.genre = genre
     song
   end
 
