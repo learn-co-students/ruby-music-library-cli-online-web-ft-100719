@@ -1,12 +1,14 @@
 require "spec_helper"
+require 'pry'
 
 describe "Song" do
   let(:song) { Song.new("In the Aeroplane Over the Sea") }
 
   describe "#initialize" do
     it "accepts a name for the new song" do
+      # binding.pry
       new_song = Song.new("Alison")
-
+      
       new_song_name = new_song.instance_variable_get(:@name)
 
       expect(new_song_name).to eq("Alison")
