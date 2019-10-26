@@ -1,3 +1,7 @@
+# require_relative './concerns/findable.rb'
+# require_relative './song.rb'
+# require_relative './artist.rb'
+
 require 'pry'
 
 class Genre
@@ -36,7 +40,7 @@ class Genre
 
   def artists
     songs.collect{|song| song.artist }.uniq
-  end 
+  end
 
 
 

@@ -1,6 +1,11 @@
+# require_relative './concerns/findable.rb'
+# require_relative './song.rb'
+# require_relative './genre.rb'
+
 require 'pry'
 
 class Artist
+
 
   attr_accessor :name
   attr_reader :songs

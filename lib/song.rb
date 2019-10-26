@@ -1,3 +1,8 @@
+# require_relative './concerns/findable.rb'
+# require_relative './artist.rb'
+# require_relative './genre.rb'
+
+
 require 'pry'
 
 class Song
@@ -10,7 +15,7 @@ class Song
     @name=name
     self.artist=artist unless artist==nil#artist= instead of simply assigning to an @artist instance variable to ensure that associations are created upon initializati
     self.genre=genre unless genre==nil
-    @@all<<self
+
   end
 
   def self.all
