@@ -1,4 +1,5 @@
 require "spec_helper"
+require_relative '../config/environment'
 
 describe "MusicLibraryController - CLI Commands" do
   let(:music_library_controller) { MusicLibraryController.new("./spec/fixtures/mp3s") }
