@@ -6,14 +6,14 @@ require 'pry'
 
 class Genre
   extend Concerns::Findable
-  
+
   attr_accessor :name
 
   @@all=[]
 
   def initialize(name)
     @name=name
-    @@all<<self
+    # @@all<<self
     @songs=[]
   end
 
@@ -42,8 +42,6 @@ class Genre
   def artists
     songs.collect{|song| song.artist }.uniq
   end
-
-
 
 end
 # binding.pry

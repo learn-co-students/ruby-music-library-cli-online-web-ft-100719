@@ -7,6 +7,7 @@ attr_accessor :path
     @path=path
     # binding.pry
     MusicImporter.new(@path).import
+    # call
   end
 
   def call
@@ -19,10 +20,29 @@ attr_accessor :path
     puts "To play a song, enter 'play song'."
     puts "To quit, type 'exit'."
     puts "What would you like to do?"
-    input=gets
-    until input=='exit'
-      input=gets
+
+    input=gets.strip
+
+
+    while input != "exit" do
+      if input=='list songs'
+        list_songs
+      elsif input=='list artists'
+        list_artists
+      elsif input=='list genres'
+        list_genres
+      elsif input=='list artist'
+        list_songs_by_artist
+      elsif input=='list genre'
+        list_songs_by_genre
+      elsif input=='play song'
+        play_song
+      end
+
+      input=gets.strip
+
     end
+
 end
 
 
@@ -39,14 +59,46 @@ end
   end
 
   def list_genres
+    # binding.pry
     Genre.all.sort_by(&:name).each.with_index(1) do |g,i|
       puts "#{i}. #{g.name}"
     end
   end
 
+  def list_songs_by_artist
 
+    puts "Please enter the name of an artist:"
+    input=gets.strip
 
+    if artist=Artist.find_by_name(input)
+      artist.songs.sort_by(&:name).each.with_index(1) do |s,i|
+        puts "#{i}. #{s.name} - #{s.genre.name}"
+      end
+    end
 
+  end
 
+  def list_songs_by_genre
+
+    puts "Please enter the name of a genre:"
+    input=gets.strip
+
+    if genre=Genre.find_by_name(input)
+      genre.songs.sort_by(&:name).each.with_index(1) do |s,i|
+        puts "#{i}. #{s.artist.name} - #{s.name}"
+      end
+    end
+
+  end
+
+  def play_song
+    puts "Which song number would you like to play?"
+    input=gets.strip.to_i
+
+    if (1..Song.all.length).include?(input)
+        song=Song.all.sort_by(&:name)[input-1]
+        puts "Playing #{song.name} by #{song.artist.name}"
+    end
+  end
 
 end
