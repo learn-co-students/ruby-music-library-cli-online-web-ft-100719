@@ -1,4 +1,4 @@
-# require_relative './concerns/findable.rb'
+require_relative './concerns/findable.rb'
 # require_relative './artist.rb'
 # require_relative './genre.rb'
 
@@ -6,6 +6,7 @@
 require 'pry'
 
 class Song
+  extend Concerns::Findable
 
   attr_accessor :name, :artist
 
@@ -42,7 +43,6 @@ class Song
 
   def artist=(artist)#-> passing in an Artist object that looks like #<Artist:0x000055ceeca68248 @name="Bobby", @songs=[]>
   @artist=artist
-    # @artist.songs << self
   @artist.add_song(self)
   end
 
@@ -63,6 +63,23 @@ class Song
   def self.find_or_create_by_name(name)
     self.find_by_name(name)? self.find_by_name(name) : self.create(name)
   end
+
+  def self.new_from_filename(filename)
+    array=filename.split(' - ').map{|each| each.strip}
+    song=self.find_or_create_by_name(array[1])
+    artist=Artist.find_or_create_by_name(array[0])
+    song.artist=artist
+    genre=Genre.find_or_create_by_name(array[2].gsub('.mp3',''))
+    song.genre=genre
+    song
+  end
+
+  def self.create_from_filename(filename)
+    # array=filename.split(/[-.]/).map{|each| each.strip}
+    self.new_from_filename(filename)
+  end
+
+
 
 end
 # binding.pry|| self.find_by_name(name)!=self

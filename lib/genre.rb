@@ -1,11 +1,12 @@
-# require_relative './concerns/findable.rb'
+require_relative '../lib/concerns/findable.rb'
 # require_relative './song.rb'
 # require_relative './artist.rb'
 
 require 'pry'
 
 class Genre
-
+  extend Concerns::Findable
+  
   attr_accessor :name
 
   @@all=[]
