@@ -21,6 +21,7 @@ attr_accessor :path
     puts "To quit, type 'exit'."
     puts "What would you like to do?"
 
+
     input=gets.strip
 
 
@@ -41,6 +42,10 @@ attr_accessor :path
 
       input=gets.strip
 
+    #
+    # input=gets
+    # until input=='exit'
+    #   input=gets
     end
 
 end
@@ -79,7 +84,6 @@ end
   end
 
   def list_songs_by_genre
-
     puts "Please enter the name of a genre:"
     input=gets.strip
 
@@ -99,6 +103,20 @@ end
         song=Song.all.sort_by(&:name)[input-1]
         puts "Playing #{song.name} by #{song.artist.name}"
     end
-  end
-
 end
+end
+
+
+
+#commented out
+  # def play_song
+  #   puts "Which song number would you like to play?"
+  #
+  #   input=gets.strip.to_i
+  #
+  #   if genre=Genre.find_by_name(input)
+  #     genre.songs.sort_by(&:name).each.with_index(1) do |s,i|
+  #       puts "#{i}. #{s.artist.name} - #{s.name}"
+  #     end
+  #   end
+  # end

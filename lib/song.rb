@@ -16,7 +16,6 @@ class Song
     @name=name
     self.artist=artist unless artist==nil#artist= instead of simply assigning to an @artist instance variable to ensure that associations are created upon initializati
     self.genre=genre unless genre==nil
-
   end
 
   def self.all
