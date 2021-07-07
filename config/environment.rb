@@ -5,3 +5,8 @@ module Concerns
 end
 
 require_all 'lib'
+
+class
+def 
+  ed
+end
